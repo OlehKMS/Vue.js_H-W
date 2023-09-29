@@ -1,0 +1,33 @@
+body {
+   color: #333;
+   background-color: #efefef;
+   padding-top: 2.5%;
+   padding-left: 3%;
+   padding-right: 3%;
+}
+
+h1 {
+   background: -webkit-linear-gradient(315deg, #42d392 25%, #647eff);
+   background-clip: text;
+   font-size: 76px;
+   line-height: 1.25;
+   font-weight: 900;
+   letter-spacing: -1.5px;
+   overflow-wrap: break-word;
+   text-rendering: optimizeLegibility;
+   text-align: center;
+   direction: ltr;
+   color: black;
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent
+}
+table, th, td {
+   border: 1px solid black;
+ }
+ table{
+   width: 50%;
+   margin: 0 auto;
+ }
+ td{
+   text-align: center;
+ }
