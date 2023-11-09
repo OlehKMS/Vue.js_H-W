@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+   <link rel="stylesheet" href="../style.css">
+   <title>Task #2</title>
+</head>
+
+<body>
+   <div class="wrapper">
+      <div id="app">
+         <label for="usermonth">Введіть номер місяця</label>
+         <input v-model.number='userNumberMonth' id="usermonth" type="number" min="1" max="12">
+         
+            <span>Рекомендований одяг: {{ recommendations.clothing }}</span>
+            <div>
+               <img width="720" height="480" :src="recommendations.picture" alt="Рекомендований одяг">
+            </div>
+         
+      </div>
+   </div>
+   <script>
+      const { createApp } = Vue;
+
+      createApp({
+         data() {
+            return {
+               userNumberMonth: null // начальное значение для номера месяца
+            };
+         },
+         computed: {
+            recommendations() {
+               let season;
+               switch (this.userNumberMonth) {
+                  case 12:
+                  case 1:
+                  case 2:
+                     season = 'winter';
+                     break;
+                  case 3:
+                  case 4:
+                  case 5:
+                     season = 'spring';
+                     break;
+                  case 6:
+                  case 7:
+                  case 8:
+                     season = 'summer';
+                     break;
+                  case 9:
+                  case 10:
+                  case 11:
+                     season = 'autumn';
+                     break;
+                  default:
+                     return { clothing: "Не вибрано", picture: "" };
+               }
+               const recommendations = {
+                  winter: {
+                     clothing: 'Тепла куртка та шапка',
+                     picture: 'https://upload.wikimedia.org/wikipedia/commons/9/92/Winter_Forest_Near_Erzhausen_II.jpg'
+                  },
+                  spring: {
+                     clothing: 'Весняний плащ',
+                     picture: 'https://storage.googleapis.com/pod_public/1300/136195.jpg'
+                  },
+                  summer: {
+                     clothing: 'Футболка та шорти',
+                     picture: 'https://i.pinimg.com/736x/2e/3f/ab/2e3fab2ed747fb0487c8eea502ec41f2.jpg'
+                  },
+                  autumn: {
+                     clothing: 'Вітровка та штани',
+                     picture: 'https://media.posterlounge.com/img/products/740000/736135/736135_poster.jpg'
+                  }
+               };
+               return recommendations[season];
+            }
+         }
+      }).mount('#app');
+   </script>
+
+</body>
+
+</html>
