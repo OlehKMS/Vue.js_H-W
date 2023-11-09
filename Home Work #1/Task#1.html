@@ -1,18 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="../style.css">
    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+   <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script> -->
+
    <title>Task 1</title>
 </head>
+
 <body>
    <div class="wrapper">
       <div id="app">
-         
+         <!--  Вводиться кількість пасажирів -->
+         <label for="usernumber">Введіть кількість пасажирів</label>
+         <input type="number" id="usernumber" v-model.number='numberPeople'>
+
+         <div class="column">
+            <span>Кількість автобусів дорівнює: {{ countQuantitiesBuses }} </span>
+            <span>Кількість пляшок води дорівнює: {{ countWaterBottles }} </span>
+            <span>Кількість бутербродів  дорівнює: {{ countSandwiches }} </span>
+         </div>
       </div>
    </div>
+   <script>
+      const { createApp } = Vue;
+
+      const app = createApp({
+         data() {
+            return {
+               numberPeople: null
+            };
+         },
+         computed: {
+            countQuantitiesBuses() {
+               // Округляем в большую сторону количество автобусов
+               return this.numberPeople ? Math.ceil(this.numberPeople / 20) : 0;
+            },
+            countWaterBottles() {
+               // Вычисляем количество бутылок воды (по 2 на человека)
+               return this.numberPeople ? this.numberPeople * 2 : 0;
+            },
+            countSandwiches(){
+               //Вычисляем количество бутербродов
+               return this.numberPeople ? this.numberPeople * 3 : 0;
+            }
+         }
+      });
+
+      app.mount('#app');
+
+   </script>
 </body>
+
+
 </html>
