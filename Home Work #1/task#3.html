@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="../style.css">
+   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+
+   <title>Task 3</title>
+</head>
+
+<body>
+   <div class="wrapper">
+      <div id="app">
+         <label for="startUserNumbers">початок діапазону</label>
+         <input v-model.number='startUserNumbers' type="number" id="startUserNumbers">
+         <br>
+         <label for="endUserNumbers">кінець діапазону</label>
+         <input v-model.number='endUserNumbers' type="number" id="endUserNumbers">
+         <button @click="generateRandomNumber">rundom number</button>
+      </div>
+   </div>
+   <script>
+      const { createApp } = Vue;
+      createApp({
+         data() {
+            return {
+               endUserNumbers: null,
+               startUserNumbers: null
+            }
+         },
+         methods: {
+            generateRandomNumber() {
+               if (this.startUserNumbers !== null && this.endUserNumbers !== null) {
+                  const randomNumber = Math.floor(Math.random() * (this.endUserNumbers - this.startUserNumbers + 1)) + this.startUserNumbers;
+                  alert(`Ваше випадкове число: ${randomNumber}`);
+               } else {
+                  alert("Будь ласка, введіть діапазон чисел.");
+               }
+
+            }
+         }
+      })
+      .mount('#app');
+   </script>
+</body>
+
+
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="../style.css">
+   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+   <title>Bank account</title>
+</head>
+
+<body>
+   <div class="wrapper">
+      <div id="app">
+         <div class="column">
+            <div :class="accountClass">Сума нарахунку: <span>{{userBankAccount.toFixed(2)}} </span> грн.</div>
+            <div><span>Зарахувати на рахунок: <input v-model.number='creditFunds' type="number"></span>
+               <button @click="depositMoney">Зарахувати</button>
+            </div>
+            <div><span>Зняти з рахуноку: <input v-model.number='withdrawFunds' type="number"></span>
+               <button @click="withdrawalMoney">Зняти</button>
+            </div>
+            <div><span>Відсотки за обслуговування: {{serviceInterestInMoney.toFixed(2)}} грн.</span></div>
+         </div>
+         <hr>
+         <div class="column">
+            <div :class="dollarsClass">Сума у доларах: $ {{amountInDollars.toFixed(2)}}</div>
+            <div :class="euroClass">Сума у євро: Є {{amountInEvro.toFixed(2)}}</div>
+         </div>
+      </div>
+   </div>
+   <script>
+      const { createApp } = Vue;
+      createApp({
+         data() {
+            return {
+               userBankAccount: 0,
+               creditFunds: null,
+               withdrawFunds: null,
+               serviceInterestInMoney: 0,
+               serviceInterest: 0.03,
+               amountInDollars: 0,
+               amountInEvro: 0,
+               exchangeRateInDollars: 38.05,
+               exchangeRateInEouro: 40.60,
+               lastOperation: null,
+            }
+         },
+         computed: {
+            accountClass() {
+               return {
+                  'text-red': this.lastOperation === 'withdrawal',
+                  'text-green': this.lastOperation === 'deposit'
+               };
+            },
+            dollarsClass() {
+               return {
+                  'text-red': this.amountInDollars < 100,
+                  'text-green': this.amountInDollars >= 100
+               };
+            },
+            euroClass() {
+               return {
+                  'text-red': this.amountInEvro < 100,
+                  'text-green': this.amountInEvro >= 100
+               };
+            }
+         },
+         methods: {
+            depositMoney() {
+               this.serviceInterestInMoney = this.creditFunds * this.serviceInterest
+               this.userBankAccount += this.creditFunds - this.serviceInterestInMoney
+               this.lastOperation = 'deposit';
+               this.updateCurrencyBalances();
+               this.creditFunds = null;
+
+            },
+            
+            withdrawalMoney() {
+               this.serviceInterestInMoney = this.withdrawFunds * this.serviceInterest
+               this.userBankAccount = this.userBankAccount - (this.withdrawFunds + this.serviceInterestInMoney)
+               this.lastOperation = 'withdrawal';
+               this.updateCurrencyBalances();
+               this.withdrawFunds = null
+            },
+            updateCurrencyBalances() {
+               this.amountInDollars = this.userBankAccount / this.exchangeRateInDollars;
+               this.amountInEvro = this.userBankAccount / this.exchangeRateInEouro;
+            }
+         },
+
+      })
+         .mount('#app');
+   </script>
+</body>
+
+</html>

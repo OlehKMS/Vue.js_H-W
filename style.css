@@ -38,3 +38,11 @@ table, th, td {
   display: flex;
   flex-direction: column;
  }
+ .text-red {
+  color: red;
+}
+
+.text-green {
+  color: green;
+}
+
