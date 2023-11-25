@@ -21,7 +21,7 @@
             <div><span>Зняти з рахуноку: <input v-model.number='withdrawFunds' type="number"></span>
                <button @click="withdrawalMoney">Зняти</button>
             </div>
-            <div><span>Відсотки за обслуговування: {{serviceInterestInMoney.toFixed(2)}} грн.</span></div>
+            <div><span>Відсотки за обслуговування: {{getServiceInterestInMoney.toFixed(2)}} грн.</span></div>
          </div>
          <hr>
          <div class="column">
@@ -48,6 +48,22 @@
             }
          },
          computed: {
+            serviceInterestForDeposit() {
+               return this.creditFunds * this.serviceInterest;
+            },
+            serviceInterestForWithdrawal() {
+               return this.withdrawFunds * this.serviceInterest;
+            },
+            getServiceInterestInMoney() {
+               if (this.creditFunds !== null) {
+                  return this.serviceInterestForDeposit;
+               }
+               if (this.withdrawFunds !== null) {
+                  return this.serviceInterestForWithdrawal;
+               }
+               return 0;
+            },
+
             accountClass() {
                return {
                   'text-red': this.lastOperation === 'withdrawal',
@@ -57,13 +73,15 @@
             dollarsClass() {
                return {
                   'text-red': this.amountInDollars < 100,
-                  'text-green': this.amountInDollars >= 100
+                  'text-green': this.amountInDollars >= 100,
+                  'text-black': this.amountInDollars === 0
                };
             },
             euroClass() {
                return {
                   'text-red': this.amountInEvro < 100,
-                  'text-green': this.amountInEvro >= 100
+                  'text-green': this.amountInEvro >= 100,
+                  'text-black': this.amountInEvro === 0
                };
             }
          },
@@ -76,7 +94,7 @@
                this.creditFunds = null;
 
             },
-            
+
             withdrawalMoney() {
                this.serviceInterestInMoney = this.withdrawFunds * this.serviceInterest
                this.userBankAccount = this.userBankAccount - (this.withdrawFunds + this.serviceInterestInMoney)
