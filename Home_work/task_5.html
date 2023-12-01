@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="../style.css">
+   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+
+   <title>Task 5</title>
+</head>
+
+<body>
+   <div class="wrapper">
+      <div id="app">
+         <div class="column">
+            <div><span>Login: </span> <input v-model='login' type="text"> </div>
+            <div><span>Password:</span> <input v-model='password' type="password"> </div>
+            <button @click="checkCredentials">GO</button>
+            <div>{{loginStatus}}</div>
+         </div>
+      </div>
+   </div>
+   <script>
+      const { createApp } = Vue;
+      createApp({
+         data() {
+            return {
+               userLogPasw: [{
+                  login: 'Login',
+                  password: 'Password'
+               }],
+               login: '',
+               password: '',
+               loginStatus: ''
+            }
+         },
+         methods: {
+            checkCredentials() {
+               let user = this.userLogPasw.find(user => user.login === this.login && user.password === this.password);
+               if (user) {
+                  this.loginStatus = 'Користувач авторизований.';
+               } else {
+                  this.loginStatus = 'Неправильний логін або пароль.';
+               }
+            }
+         }
+      })
+         .mount('#app');
+   </script>
+</body>
+
+
+</html>

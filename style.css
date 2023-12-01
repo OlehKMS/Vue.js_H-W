@@ -49,4 +49,7 @@ table, th, td {
 .text-black{
   color: black;
 }
+button{
+  max-width: fit-content;
+}
 
