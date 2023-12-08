@@ -7,45 +7,8 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="../style.css">
    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-
-
    <title>Task 1</title>
 </head>
-
-<!-- <body>
-   <div class="wrapper">
-      <div id="app">
-         <div class="column">
-            <div><span>Login</span> <input v-model='login' type="text"></div>
-            <div><span>Password</span> <input v-model='password' type="password"></div>
-            <button @click = "">GO</button>
-         </div>
-      </div>
-   </div>
-   <script>
-      const {createApp} = Vue;
-      createApp({
-         data(){
-            return{
-               userLoginPassword:[
-                  {
-                     login: '',
-                     password:''
-                     
-                  }
-               ],
-               login:'',
-               password:'',
-               loginStatus:''
-            }
-         }
-         methods:{
-
-         }
-      })
-      .mount('#app');
-   </script>
-</body> -->
 
 <body>
    <div id="app">
@@ -71,9 +34,9 @@
                ],
                login: '',
                password: '',
-               loginStatus: false,
                loginMessage: '',
                showSmile: false,
+               loginStatus: false,
             };
          },
          computed: {
@@ -89,6 +52,7 @@
                let user = this.userLoginPassword.find(user => user.login === this.login && user.password === this.password)
                if (user) {
                   this.showSmile = true;
+                  this.loginMessage = '';
                }
                else {
 
