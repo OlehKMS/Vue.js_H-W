@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="../style.css">
+   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+
+   <title>Task 1</title>
+</head>
+
+<!-- <body>
+   <div class="wrapper">
+      <div id="app">
+         <div class="column">
+            <div><span>Login</span> <input v-model='login' type="text"></div>
+            <div><span>Password</span> <input v-model='password' type="password"></div>
+            <button @click = "">GO</button>
+         </div>
+      </div>
+   </div>
+   <script>
+      const {createApp} = Vue;
+      createApp({
+         data(){
+            return{
+               userLoginPassword:[
+                  {
+                     login: '',
+                     password:''
+                     
+                  }
+               ],
+               login:'',
+               password:'',
+               loginStatus:''
+            }
+         }
+         methods:{
+
+         }
+      })
+      .mount('#app');
+   </script>
+</body> -->
+
+<body>
+   <div id="app">
+      <input v-model="login" placeholder="Логін">
+      <input type="password" v-model="password" placeholder="Пароль">
+      <button @click="checkLogin">Увійти</button>
+      <div v-if="loginStatus" :class="messageClass">{{ loginMessage }}</div>
+      <div v-if="showSmile">😊</div>
+   </div>
+
+   <script>
+      const { createApp } = Vue;
+
+      createApp({
+         data() {
+            return {
+               userLoginPassword: [
+                  {
+                     login: 'Іван',
+                     password: '1111'
+
+                  }
+               ],
+               login: '',
+               password: '',
+               loginStatus: false,
+               loginMessage: '',
+               showSmile: false,
+            };
+         },
+         computed: {
+            messageClass() {
+               return {
+                  'blue': this.login === 'Іван',
+                  'red': this.login !== 'Іван'
+               };
+            }
+         },
+         methods: {
+            checkLogin() {
+               let user = this.userLoginPassword.find(user => user.login === this.login && user.password === this.password)
+               if (user) {
+                  this.showSmile = true;
+               }
+               else {
+
+                  this.showSmile = false;
+                  this.loginStatus = true;
+                  this.loginMessage = 'Невірний логін або пароль';
+               }
+            }
+         }
+      }
+
+      ).mount('#app');
+   </script>
+
+   <style>
+      .red {
+         color: red;
+      }
+
+      .blue {
+         color: blue;
+      }
+   </style>
+</body>
+
+</html>
